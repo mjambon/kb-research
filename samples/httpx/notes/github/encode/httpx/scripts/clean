@@ -1,0 +1,5 @@
+# Remove generated local artifacts
+
+tags: build
+
+This script removes known build, documentation, coverage, and package metadata output directories. It is a developer maintenance command; it does not determine tracked source inventory. Related ignore patterns are in `/github/encode/httpx/.gitignore`.

@@ -1,0 +1,5 @@
+# Run the cross-version CI quality gate
+
+tags: build testing
+
+On master pushes and selected pull requests, this workflow tests Python 3.9 through 3.13. Each job installs dependencies then runs check, build, test, and coverage scripts from `/github/encode/httpx/scripts/`. It is the automated consumer of `/github/encode/httpx/pyproject.toml` and `/github/encode/httpx/requirements.txt` settings.

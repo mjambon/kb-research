@@ -1,0 +1,5 @@
+# Publish tagged releases
+
+tags: build
+
+A pushed tag triggers this deploy job, which checks out source, sets up Python, installs dependencies, and invokes the release script. `/github/encode/httpx/scripts/publish` performs version/build/upload details; the workflow binds publication to GitHub environment controls.

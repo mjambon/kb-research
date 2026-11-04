@@ -1,0 +1,5 @@
+# Run the local static checks
+
+tags: build testing
+
+The script validates version synchronization, Ruff formatting and lint, and mypy over package and tests. `/github/encode/httpx/.github/workflows/test-suite.yml` invokes it before build and tests. Rules and exclusions live in `/github/encode/httpx/pyproject.toml`.

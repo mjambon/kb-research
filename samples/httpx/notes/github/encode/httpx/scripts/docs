@@ -1,0 +1,5 @@
+# Serve the documentation locally
+
+tags: docs build
+
+This shell wrapper invokes MkDocs serve, using a local virtualenv if present. It reads `/github/encode/httpx/mkdocs.yml` and content in `/github/encode/httpx/docs/`.

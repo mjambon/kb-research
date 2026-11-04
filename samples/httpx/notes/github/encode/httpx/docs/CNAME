@@ -1,0 +1,5 @@
+# Set the documentation custom domain
+
+tags: docs build
+
+This single-line domain marker identifies the hostname used for the published documentation site. Site content and routing are configured in `/github/encode/httpx/mkdocs.yml`; it has no package runtime role.

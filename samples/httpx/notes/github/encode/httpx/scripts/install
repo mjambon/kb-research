@@ -1,0 +1,5 @@
+# Install contributor dependencies
+
+tags: build
+
+This script selects Python, creates a local virtualenv outside GitHub Actions, and installs `/github/encode/httpx/requirements.txt`. CI uses it before running check, build, and test scripts; pinned development dependencies remain separate from the package runtime declaration.

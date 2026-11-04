@@ -1,0 +1,5 @@
+Anchor relocation does **not** require a unique exact match. It scores matching documents by shingle coverage, then by the number of inlier hits, and finally chooses the lowest document ID. It takes the top candidate and updates the anchor without marking the choice as ambiguous. The original file gets no preference. [Selection code](/workspace/kb-research/samples/skeletor/skeletor-orig/base-libs/text/Anchor.ml:348) · [Relocation code](/workspace/kb-research/samples/skeletor/skeletor-orig/base-libs/text/Anchor.ml:483)
+
+That is undesirable when the copies may be unrelated: a deterministic choice is still a guess about where the *referenced content* went. The tests document a false positive where an anchor moves to another file’s coincidental copy of the text. [Known limitation](/workspace/kb-research/samples/skeletor/skeletor-orig/base-libs/text/tests/Text_api_tests.ml:1096)
+
+I’d prefer an exact match in the original file when it remains there. If multiple other files are equally plausible, I’d leave the anchor outdated for review rather than silently choose one.

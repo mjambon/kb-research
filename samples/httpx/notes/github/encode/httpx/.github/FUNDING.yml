@@ -1,0 +1,5 @@
+# Link GitHub sponsorship to the Encode organization
+
+tags: community
+
+This GitHub metadata names `encode` as the sponsorship destination. It affects repository UI only and is unrelated to runtime package behavior.

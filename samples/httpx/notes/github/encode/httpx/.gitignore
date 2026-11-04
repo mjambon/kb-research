@@ -1,0 +1,5 @@
+# Keep local build output out of version control
+
+tags: build
+
+The ignore rules cover virtual environments, Python caches, coverage artifacts, distributions, generated site output, and editor files. This file influences developer status checks only; committed inventory comes from Git objects, including any tracked file matching an ignore rule. Related cleanup is in `/github/encode/httpx/scripts/clean`.

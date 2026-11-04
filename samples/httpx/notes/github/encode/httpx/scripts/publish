@@ -1,0 +1,5 @@
+# Build and upload a release
+
+tags: build docs
+
+The release script checks that a GitHub Actions tag matches the version in `/github/encode/httpx/httpx/__version__.py`, then uploads existing `dist/*` artifacts with Twine and deploys the MkDocs site. Under GitHub Actions it also configures bot identity for the documentation deployment. `/github/encode/httpx/.github/workflows/publish.yml` invokes it for tags; `/github/encode/httpx/scripts/build` creates the distributions separately. A direct invocation depends on those artifacts already existing.

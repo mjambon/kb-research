@@ -1,0 +1,5 @@
+# Run the coverage-enabled pytest suite
+
+tags: build testing
+
+The test wrapper optionally runs static checks outside CI, then runs pytest through coverage; local runs also report coverage. CI pairs it with `/github/encode/httpx/scripts/coverage`. Pytest options and coverage source selection come from `/github/encode/httpx/pyproject.toml`.

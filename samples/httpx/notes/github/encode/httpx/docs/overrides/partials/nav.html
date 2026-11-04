@@ -1,0 +1,5 @@
+# Override the documentation navigation partial
+
+tags: docs build
+
+This template reproduces the MkDocs Material primary navigation and appends a linked sponsor image using `/github/encode/httpx/docs/img/speakeasy.png`. `/github/encode/httpx/mkdocs.yml` points the theme at the overrides folder; the partial is consumed during site rendering, not by HTTPX runtime. Because it imports the theme's `nav-item` partial and uses theme variables, review it against the pinned MkDocs Material version in `/github/encode/httpx/requirements.txt` when upgrading the theme.

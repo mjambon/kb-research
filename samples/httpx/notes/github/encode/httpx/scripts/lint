@@ -1,0 +1,5 @@
+# Apply Ruff fixes and formatting
+
+tags: build
+
+The developer command runs Ruff fix and format on `/github/encode/httpx/httpx/` and `/github/encode/httpx/tests/`. CI uses the checking counterpart `/github/encode/httpx/scripts/check` to verify formatting without rewriting source.

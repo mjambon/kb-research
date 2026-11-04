@@ -1,0 +1,5 @@
+# Define package, build, and test configuration
+
+tags: build config
+
+Hatchling builds the package; dynamic version comes from `/github/encode/httpx/httpx/__version__.py` and the published README combines `/github/encode/httpx/README.md` with release information from `/github/encode/httpx/CHANGELOG.md`. Runtime dependencies include httpcore 1.x, anyio, certifi, and idna; extras enable Brotli, CLI, HTTP/2, SOCKS, and Zstandard. It declares the `httpx:main` command, Ruff and strict mypy settings, pytest warnings and markers, and coverage scope. `/github/encode/httpx/scripts/` and GitHub workflows consume these settings.

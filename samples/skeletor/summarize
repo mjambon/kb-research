@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+#
+# Print summaries of the 'run' results
+#
+set -eu -o pipefail
+
+for variant in orig stripped-comments stripped-comments-markdown; do
+  repo="skeletor-$variant"
+  echo "===== repo: $repo ====="
+
+  for i in `seq 1 10`; do
+    cat trace-"$repo"-"$i".jsonl
+  done | jq 'select(.type == "turn.completed")' > tmp.jsonl
+  printf "Input tokens: "
+  cat tmp.jsonl | jq '.usage.input_tokens' | jq -s add
+  printf "Cached input tokens: "
+  cat tmp.jsonl | jq '.usage.cached_input_tokens' | jq -s add
+  printf "Cache write input tokens: "
+  cat tmp.jsonl | jq '.usage.cache_write_input_tokens' | jq -s add
+  printf "Output tokens: "
+  cat tmp.jsonl | jq '.usage.output_tokens' | jq -s add
+  printf "Reasoning output tokens: "
+  cat tmp.jsonl | jq '.usage.reasoning_output_tokens' | jq -s add
+
+  printf "Duration (s): "
+  grep real time-"$repo".txt | grep -oP '[0-9]+\.[0-9]+' | jq -s add
+
+  for i in `seq 1 10`; do
+    cat trace-"$repo"-"$i".jsonl | jq -r 'select(.type == "item.completed")' \
+      | jq -sr 'last | .item.text' > answer-"$repo"-"$i".txt
+  done
+done

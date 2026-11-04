@@ -1,0 +1,5 @@
+# Style the documentation site
+
+tags: docs
+
+Custom CSS adjusts the appearance of the MkDocs site. `/github/encode/httpx/mkdocs.yml` includes it as an extra stylesheet. Review the rendered site when changing selectors because the source alone cannot confirm theme behavior.

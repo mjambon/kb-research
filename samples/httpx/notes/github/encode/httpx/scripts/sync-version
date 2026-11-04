@@ -1,0 +1,5 @@
+# Check release numbers across package metadata
+
+tags: build
+
+This script extracts a release number from `/github/encode/httpx/CHANGELOG.md` and compares it with `/github/encode/httpx/httpx/__version__.py`. `/github/encode/httpx/scripts/check` runs it to prevent a release metadata mismatch. Its regular expression is a maintenance constraint when changing version format.

@@ -1,0 +1,5 @@
+# Configure the documentation site
+
+tags: build config docs
+
+The MkDocs Material configuration sets site metadata, navigation, theme, custom CSS and overrides, Markdown extensions, and API documentation behavior. It maps the content in `/github/encode/httpx/docs/` into the published site. `/github/encode/httpx/scripts/docs` serves it and `/github/encode/httpx/scripts/build` builds it.

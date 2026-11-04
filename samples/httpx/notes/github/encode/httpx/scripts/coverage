@@ -1,0 +1,5 @@
+# Enforce complete measured test coverage
+
+tags: build testing
+
+The script runs `coverage report` with missing lines shown and `--fail-under=100`. `/github/encode/httpx/scripts/test` records coverage and CI invokes this gate. Included source paths are configured in `/github/encode/httpx/pyproject.toml`.

@@ -1,0 +1,5 @@
+# Supply the logo.jpg documentation image
+
+tags: docs asset
+
+This tracked JPEG is stored with documentation images. No reference from another tracked text file was found at this revision, so its current consumer and publication role are unknown. The image folder belongs to the site configured by `/github/encode/httpx/mkdocs.yml`; retaining this ghost records the committed asset without inventing a use.

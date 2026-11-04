@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+#
+# Run codex on a repo to answer a question
+#
+set -eu -o pipefail
+
+# Easy question - no difference
+#question="\
+#What happens if during anchor relocation, exact matches for the
+#anchor text are found in multiple files?"
+
+# Slightly hard - no difference
+question="\
+What happens if during anchor relocation, exact matches for the
+anchor text are found in multiple files? Is this behavior desirable?"
+
+echo "Question: $question"
+
+echo "Select target repo:"
+select repo in skeletor-* ; do
+  echo "Selected: $repo"
+  break
+done
+
+echo "Repeat 10 times:"
+select repeat in yes no; do
+  echo "Selected: $repeat"
+  break
+done
+
+case "$repeat" in
+  yes)
+    reps=10
+    ;;
+  *)
+    reps=1
+esac
+
+rm -f time-"$repo".txt
+for i in `seq 1 $reps`; do
+  echo "Run #$i"
+  (
+    echo "Run #$i"
+    time (
+      cd "$repo"
+      codex --no-daemon --dangerously-bypass-approvals-and-sandbox exec --json \
+            "$question"
+    ) > trace-"$repo"-"$i".jsonl
+  ) >> time-"$repo".txt 2>&1
+done
+
+rm -f trace-"$repo".jsonl
+ln -s trace-"$repo"-1.jsonl trace-"$repo".jsonl
+
+echo "===== Commands ====="
+cat trace-"$repo".jsonl \
+| jq -r 'select(.type == "item.started") | .item.command'
+
+echo "===== Answer ====="
+cat trace-"$repo".jsonl \
+| jq 'select(type == "object" and .type == "item.completed")' \
+| jq -sr 'last | .item.text'
+
+echo "===== Resource usage ====="
+# Should look like this:
+# {
+#   "type": "turn.completed",
+#   "usage": {
+#     "input_tokens": 118636,
+#     "cached_input_tokens": 87168,
+#     "cache_write_input_tokens": 0,
+#     "output_tokens": 816,
+#     "reasoning_output_tokens": 215
+#   }
+# }
+cat trace-"$repo".jsonl \
+| jq 'select(type == "object" and .type == "turn.completed")'

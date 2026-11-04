@@ -1,0 +1,5 @@
+# Mark HTTPX as a typed Python package
+
+tags: api build
+
+The PEP 561 marker tells type checkers that inline annotations in `/github/encode/httpx/httpx/` are part of the installed package. It contains no runtime logic. `/github/encode/httpx/pyproject.toml` packages the module tree.

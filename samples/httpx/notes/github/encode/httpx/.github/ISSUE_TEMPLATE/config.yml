@@ -1,0 +1,5 @@
+# Route support requests to the right GitHub channel
+
+tags: community
+
+This GitHub issue-template configuration disables blank issues and directs questions to Discussions and chat. It complements `/github/encode/httpx/.github/ISSUE_TEMPLATE/1-issue.md` and has no runtime effect.

@@ -1,0 +1,5 @@
+# Build and check package and documentation artifacts
+
+tags: build docs
+
+This shell script chooses a local virtualenv when present, builds Python distributions, validates them with Twine, and builds the MkDocs site. CI calls it through `/github/encode/httpx/.github/workflows/test-suite.yml`. It relies on `/github/encode/httpx/pyproject.toml`, `/github/encode/httpx/mkdocs.yml`, and pinned tools in `/github/encode/httpx/requirements.txt`.

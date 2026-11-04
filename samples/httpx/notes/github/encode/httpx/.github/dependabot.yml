@@ -1,0 +1,5 @@
+# Schedule dependency update proposals
+
+tags: build config
+
+Dependabot checks pip dependencies and GitHub Actions monthly and groups Python package updates. It watches manifests such as `/github/encode/httpx/requirements.txt` and workflow actions under `/github/encode/httpx/.github/workflows/`; it proposes PRs rather than changing runtime behavior by itself.

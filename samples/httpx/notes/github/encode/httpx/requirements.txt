@@ -1,0 +1,5 @@
+# Pin the contributor tool environment
+
+tags: build config
+
+This requirements file installs HTTPX editable with all optional extras, then pins documentation, testing, typing, formatting, coverage, certificate, and release tools. `/github/encode/httpx/scripts/install` installs it for local development and CI. These pins are development dependencies, distinct from runtime requirements in `/github/encode/httpx/pyproject.toml`.

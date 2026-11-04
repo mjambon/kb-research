@@ -1,0 +1,5 @@
+# Supply the rich-progress.gif documentation image
+
+tags: docs asset
+
+This tracked GIF asset (728 × 120 pixels) supports the documentation site. Referenced by `/github/encode/httpx/docs/advanced/clients.md`. The site build is configured in `/github/encode/httpx/mkdocs.yml`.

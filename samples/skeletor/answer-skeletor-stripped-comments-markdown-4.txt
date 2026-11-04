@@ -1,0 +1,5 @@
+If multiple files contain the anchor text, relocation **automatically chooses one**. Candidates are ranked by matched shingle coverage, then hit count, then lowest document ID. The original file gets no preference, and the chosen candidate is written to the anchor. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments-markdown/base-libs/text/Anchor.ml:348)
+
+That is deterministic, but generally **not desirable for ambiguous matches**: identical text does not establish which copy the anchor refers to. A test documents a false positive where an anchor moves to an unrelated file containing the same block. [Text_api_tests.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments-markdown/base-libs/text/tests/Text_api_tests.ml:1096) Since a successful relocation is treated as up to date, it also avoids the normal review flag. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments-markdown/base-libs/text/Anchor.ml:82)
+
+A safer policy would prefer a surviving match in the original file and require review when multiple plausible destinations remain.

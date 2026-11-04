@@ -1,0 +1,5 @@
+# Provide URL parser conformance cases
+
+tags: testing url
+
+This tracked JSON fixture contains URL cases consumed by `/github/encode/httpx/tests/models/test_whatwg.py`. The test comments identify the upstream Web Platform Tests URL data set as the source. At this revision, the test discards records marked `failure` and skips two selected cases before asserting parsed fields, so the fixture's presence does not imply full conformance coverage. Keep fixture changes tied to `/github/encode/httpx/httpx/_urlparse.py` behavior.

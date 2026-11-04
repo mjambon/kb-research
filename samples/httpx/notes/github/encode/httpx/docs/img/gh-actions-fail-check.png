@@ -1,0 +1,5 @@
+# Supply the gh-actions-fail-check.png documentation image
+
+tags: docs asset
+
+This tracked PNG asset (2582 × 1160 pixels) supports the documentation site. Referenced by `/github/encode/httpx/.github/CONTRIBUTING.md`, `/github/encode/httpx/docs/contributing.md`. The site build is configured in `/github/encode/httpx/mkdocs.yml`.

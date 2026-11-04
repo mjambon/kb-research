@@ -1,0 +1,5 @@
+There is no special handling for multiple exact matches. Relocation ranks all matching files by shingle coverage, then matching hit count, then lowest document ID. It automatically moves the anchor to the winner, with **no preference for its original file** and no ambiguity flag. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments/base-libs/text/Anchor.ml:348)
+
+That is deterministic, but it is risky for anchors used as evidence: identical text in an unrelated file can win, making the anchor appear current at the wrong location. A test documents this as a known false positive. [Text_api_tests.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments/base-libs/text/tests/Text_api_tests.ml:1096)
+
+I would prefer an exact match in the original file. If the original is gone and several equally strong destinations remain, I would leave the anchor outdated for review rather than choose by document ID.
