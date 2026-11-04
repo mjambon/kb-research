@@ -1,0 +1,5 @@
+If the anchor text matches in multiple indexed files, relocation chooses **one** destination. It ranks candidates by matched text coverage, then by the number of matching shingle hits; a tie goes to the lowest document ID. The original file gets no preference, and the anchor is updated to point at the winner. See [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-orig/base-libs/text/Anchor.ml:348).
+
+The deterministic choice is useful, but it is **not reliable evidence of where the anchor belongs**. Identical text may be an unrelated copy. The project has a test documenting exactly that false positive: an anchor moves to boilerplate in another file after its original text is replaced. See [Text_api_tests.ml](/workspace/kb-research/samples/skeletor/skeletor-orig/base-libs/text/tests/Text_api_tests.ml:1097).
+
+I would treat multiple plausible exact matches as ambiguous and require review, especially before moving an anchor to another file.

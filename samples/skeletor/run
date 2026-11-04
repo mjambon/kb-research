@@ -4,15 +4,21 @@
 #
 set -eu -o pipefail
 
-# Easy question - no difference
+# Q1 Easy question - no difference
 #question="\
 #What happens if during anchor relocation, exact matches for the
 #anchor text are found in multiple files?"
 
-# Slightly hard - no difference
+# Q2 Slightly hard - no difference
 question="\
 What happens if during anchor relocation, exact matches for the
 anchor text are found in multiple files? Is this behavior desirable?"
+
+# Q3
+#question="\
+#Report potential issues with how anchor relocation works and label them
+#as P0 if important to fix or P1 otherwise.
+#"
 
 echo "Question: $question"
 
@@ -43,7 +49,10 @@ for i in `seq 1 $reps`; do
     echo "Run #$i"
     time (
       cd "$repo"
-      codex --no-daemon --dangerously-bypass-approvals-and-sandbox exec --json \
+      codex --no-daemon --dangerously-bypass-approvals-and-sandbox \
+            -m gpt-6-sol \
+            -c model_reasoning_effort=medium \
+            exec --json \
             "$question"
     ) > trace-"$repo"-"$i".jsonl
   ) >> time-"$repo".txt 2>&1

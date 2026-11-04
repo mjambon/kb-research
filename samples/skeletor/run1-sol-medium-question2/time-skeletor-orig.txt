@@ -1,0 +1,51 @@
+Run #1
+
+real	0m26.820s
+user	0m0.999s
+sys	0m0.663s
+Run #2
+
+real	0m27.429s
+user	0m1.006s
+sys	0m0.673s
+Run #3
+
+real	0m32.762s
+user	0m1.087s
+sys	0m0.798s
+Run #4
+2026-11-04T22:25:58.941730Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when Client(HttpRequest(HttpRequest("http/request failed: error sending request for url (https://chatgpt.com/backend-api/ps/mcp)")))
+
+real	0m32.491s
+user	0m1.079s
+sys	0m0.708s
+Run #5
+
+real	0m27.269s
+user	0m1.113s
+sys	0m0.771s
+Run #6
+
+real	0m29.534s
+user	0m1.046s
+sys	0m0.765s
+Run #7
+
+real	0m32.088s
+user	0m1.103s
+sys	0m0.832s
+Run #8
+
+real	0m33.216s
+user	0m1.153s
+sys	0m0.815s
+Run #9
+
+real	0m35.770s
+user	0m1.164s
+sys	0m0.838s
+Run #10
+
+real	0m39.966s
+user	0m1.331s
+sys	0m1.057s
