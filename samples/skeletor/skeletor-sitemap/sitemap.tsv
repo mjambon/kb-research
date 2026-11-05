@@ -1,0 +1,370 @@
+src/	Source repositories for the skeletor navigation workspace
+src/skeletor/	OCaml knowledge-base tool with text indexing and claim graph CLI
+src/skeletor/.dockerignore	Keep Git history in static-build context while excluding build artifacts
+src/skeletor/.github/	Repository automation and CI configuration
+src/skeletor/.github/workflows/	GitHub Actions build and test workflows
+src/skeletor/.github/workflows/ci.yml	Build, test and check static Linux packaging in GitHub Actions
+src/skeletor/.gitignore	Exclude local builds, logs and temporary executable links
+src/skeletor/.ocamlformat	Set the OCaml formatter profile, wrapping and comment settings
+src/skeletor/.pre-commit-config.yaml	Run ocamlformat as a local pre-commit hook
+src/skeletor/AGENTS.md	Set source-comment and documentation rules for contributors
+src/skeletor/CONTRIBUTING.md	Explain development setup, build commands and contribution checks
+src/skeletor/Dockerfile	Build a statically linked skl executable in Alpine Linux
+src/skeletor/Makefile	Provide setup, build, test, install and static packaging targets
+src/skeletor/README.md	Explain the knowledge-base model, project status and CLI usage
+src/skeletor/base-libs/	Reusable types, indexing, graph, database and text utilities
+src/skeletor/base-libs/app-types/	Shared identifiers, source types, tags and JSON schemas
+src/skeletor/base-libs/app-types/Anchor_id.ml	Instantiate prefixed integer IDs for anchors
+src/skeletor/base-libs/app-types/Anchor_id.mli	Define typed identifiers for anchors
+src/skeletor/base-libs/app-types/Anchor_link_id.ml	Instantiate prefixed integer IDs for claim-to-anchor links
+src/skeletor/base-libs/app-types/Anchor_link_id.mli	Define typed identifiers for claim-to-anchor links
+src/skeletor/base-libs/app-types/Claim_id.ml	Instantiate prefixed integer IDs for claims
+src/skeletor/base-libs/app-types/Claim_id.mli	Define typed identifiers for claims
+src/skeletor/base-libs/app-types/Claim_link_id.ml	Instantiate prefixed integer IDs for claim-to-claim links
+src/skeletor/base-libs/app-types/Claim_link_id.mli	Define typed identifiers for claim-to-claim links
+src/skeletor/base-libs/app-types/Claim_review_reason_id.ml	Instantiate prefixed integer IDs for claim review reasons
+src/skeletor/base-libs/app-types/Claim_review_reason_id.mli	Define typed identifiers for claim review reasons
+src/skeletor/base-libs/app-types/Container_link_id.ml	Instantiate prefixed integer IDs for claim-to-container links
+src/skeletor/base-libs/app-types/Container_link_id.mli	Define typed identifiers for claim-to-container links
+src/skeletor/base-libs/app-types/Doc_id.ml	Instantiate prefixed integer IDs for documents
+src/skeletor/base-libs/app-types/Doc_id.mli	Define typed identifiers for documents
+src/skeletor/base-libs/app-types/Id.ml	Implement generic prefixed integer IDs and conversions
+src/skeletor/base-libs/app-types/Id.mli	Specify generic prefixed integer IDs and their conversion API
+src/skeletor/base-libs/app-types/Simple_tag.ml	Validate and wrap one dot-free tag component
+src/skeletor/base-libs/app-types/Simple_tag.mli	Define a typed simple tag used in tags and edge labels
+src/skeletor/base-libs/app-types/Source.ml	Parse and print source identifiers in KIND:NAME form
+src/skeletor/base-libs/app-types/Source.mli	Specify source identifier syntax and conversion operations
+src/skeletor/base-libs/app-types/Source_kind.ml	Convert file, Git and GitHub source kinds to and from text
+src/skeletor/base-libs/app-types/Source_kind.mli	Declare text conversions for the supported source kinds
+src/skeletor/base-libs/app-types/Source_name.ml	Check and construct source-name components
+src/skeletor/base-libs/app-types/Source_name.mli	Specify the valid name half of a source identifier
+src/skeletor/base-libs/app-types/Src_doc.ml	Parse source-specific document locators into typed variants
+src/skeletor/base-libs/app-types/Src_doc.mli	Define validated document locators for each source kind
+src/skeletor/base-libs/app-types/Tag.ml	Implement dotted tag validation and ancestor semantics
+src/skeletor/base-libs/app-types/Tag.mli	Specify dotted tag syntax, limits and hierarchy behavior
+src/skeletor/base-libs/app-types/dune	Build shared typed IDs, source types and JSON codecs
+src/skeletor/base-libs/app-types/graph.atd	Define JSON-serializable claim, link and graph types
+src/skeletor/base-libs/app-types/tests/	Tests for shared IDs, sources, locators and tags
+src/skeletor/base-libs/app-types/tests/Doc_id_tests.ml	Check document and anchor ID conversion boundaries
+src/skeletor/base-libs/app-types/tests/Id_tests.ml	Check prefixed ID parsing, printing and numeric conversion
+src/skeletor/base-libs/app-types/tests/Source_tests.ml	Check source syntax and document locator conversions
+src/skeletor/base-libs/app-types/tests/Tag_tests.ml	Check tag syntax, limits and hierarchical matching
+src/skeletor/base-libs/app-types/tests/dune	Expose shared-type tests to the aggregate runner
+src/skeletor/base-libs/app-types/text.atd	Define JSON-serializable source, document and anchor types
+src/skeletor/base-libs/db/	Database initialization across text and graph tables
+src/skeletor/base-libs/db/Admin.ml	Open SQLite and initialize text and graph tables
+src/skeletor/base-libs/db/Admin.mli	Declare the database opener that initializes all tables
+src/skeletor/base-libs/db/dune	Build the database administration library
+src/skeletor/base-libs/fuzzy/	Bundled static model and code-aware topic embeddings
+src/skeletor/base-libs/fuzzy/MODEL_CARD.md	Document the bundled embedding model and its training provenance
+src/skeletor/base-libs/fuzzy/Model.ml	Lazily load bundled weights and embed search text
+src/skeletor/base-libs/fuzzy/Model.mli	Expose the bundled topic-search embedding model
+src/skeletor/base-libs/fuzzy/README.md	Explain fuzzy search design, model provenance and limitations
+src/skeletor/base-libs/fuzzy/assets/	Vendored weights, vocabulary, configuration and license
+src/skeletor/base-libs/fuzzy/assets/LICENSE	State the license for the bundled embedding model assets
+src/skeletor/base-libs/fuzzy/assets/config.json	Configure the bundled static embedding model
+src/skeletor/base-libs/fuzzy/assets/model.safetensors	Store the bundled float32 embedding weights
+src/skeletor/base-libs/fuzzy/assets/vocab.txt	Map WordPiece tokens to model vocabulary IDs
+src/skeletor/base-libs/fuzzy/dune	Build fuzzy search and embed model assets into OCaml code
+src/skeletor/base-libs/fuzzy/embedder.ml	Compute static model2vec embeddings from token vectors
+src/skeletor/base-libs/fuzzy/embedder.mli	Specify model loading and text embedding operations
+src/skeletor/base-libs/fuzzy/generate/	Build-time embedding of model assets into OCaml
+src/skeletor/base-libs/fuzzy/generate/dune	Build the model-asset embedding generator
+src/skeletor/base-libs/fuzzy/generate/embed_assets.ml	Generate OCaml string constants from bundled model files
+src/skeletor/base-libs/fuzzy/normalize.ml	Split code identifiers into lowercase search words
+src/skeletor/base-libs/fuzzy/normalize.mli	Declare identifier normalization for fuzzy tokenization
+src/skeletor/base-libs/fuzzy/safetensors.ml	Decode float32 tensors from safetensors data
+src/skeletor/base-libs/fuzzy/safetensors.mli	Specify float32 tensor loading from model files or strings
+src/skeletor/base-libs/fuzzy/tests/	Fuzzy normalization, tokenization and embedding tests
+src/skeletor/base-libs/fuzzy/tests/Fuzzy_tests.ml	Check normalization, tokenization and embedding regressions
+src/skeletor/base-libs/fuzzy/tests/dune	Expose fuzzy-model regression tests to the runner
+src/skeletor/base-libs/fuzzy/tests/fixtures/	Golden vectors for fuzzy embedding regressions
+src/skeletor/base-libs/fuzzy/tests/fixtures/golden_embeddings.json	Provide reference embedding vectors for regression tests
+src/skeletor/base-libs/fuzzy/vector.ml	Compute vector norms, means and float32 serialization
+src/skeletor/base-libs/fuzzy/vector.mli	Specify embedding vector arithmetic and binary storage
+src/skeletor/base-libs/fuzzy/wordpiece.ml	Tokenize normalized text with a greedy WordPiece vocabulary
+src/skeletor/base-libs/fuzzy/wordpiece.mli	Specify vocabulary loading and WordPiece tokenization
+src/skeletor/base-libs/graph/	Claim graph storage, Markdown validation and tag queries
+src/skeletor/base-libs/graph/DB.ml	Store and query claims, links, tags and review records in SQLite
+src/skeletor/base-libs/graph/DB.mli	Define typed SQLite access for the claim graph
+src/skeletor/base-libs/graph/Graph.ml	Implement the public claim graph and link operations
+src/skeletor/base-libs/graph/Graph.mli	Specify the graph API for claims, links, tags and reviews
+src/skeletor/base-libs/graph/Graph_tests.ml	Test private graph storage, Markdown and tag-query modules
+src/skeletor/base-libs/graph/Graph_tests.mli	Expose private graph-module tests to the suite
+src/skeletor/base-libs/graph/Markdown.ml	Validate claim Markdown and render safe HTML fragments
+src/skeletor/base-libs/graph/Markdown.mli	Specify accepted claim Markdown and HTML rendering
+src/skeletor/base-libs/graph/Tag_query.ml	Parse and evaluate Boolean tag selection expressions
+src/skeletor/base-libs/graph/Tag_query.mli	Define the Boolean tag-query language and evaluation API
+src/skeletor/base-libs/graph/dune	Build the claim graph library and its SQLite integration
+src/skeletor/base-libs/graph/tests/	Public graph API and atomic-update regression tests
+src/skeletor/base-libs/graph/tests/Graph_api_tests.ml	Exercise public claim graph operations against an in-memory DB
+src/skeletor/base-libs/graph/tests/Graph_update_tests.ml	Check atomic claim updates preserve omitted fields and links
+src/skeletor/base-libs/graph/tests/dune	Expose public graph API tests to the aggregate runner
+src/skeletor/base-libs/slice/	Text range selection and safe excerpt rendering
+src/skeletor/base-libs/slice/Slice.ml	Select byte and row ranges and render safe text excerpts
+src/skeletor/base-libs/slice/Slice.mli	Specify range selectors and sanitized excerpt rendering
+src/skeletor/base-libs/slice/dune	Build the text slice extraction and rendering library
+src/skeletor/base-libs/slice/tests/	Slice selector and rendering regression tests
+src/skeletor/base-libs/slice/tests/Slice_tests.ml	Check slice parsing, range selection and rendered excerpts
+src/skeletor/base-libs/slice/tests/dune	Expose slice tests to the aggregate runner
+src/skeletor/base-libs/sqlite-util/	Shared SQLite connection, query and FTS5 helpers
+src/skeletor/base-libs/sqlite-util/Connect.ml	Manage synchronous SQLite connections and nested transactions
+src/skeletor/base-libs/sqlite-util/Connect.mli	Specify SQLite connection and transaction behavior
+src/skeletor/base-libs/sqlite-util/FTS5.ml	Escape user text into safe SQLite FTS5 match queries
+src/skeletor/base-libs/sqlite-util/FTS5.mli	Specify safe full-text query construction from user text
+src/skeletor/base-libs/sqlite-util/Query.ml	Bind parameters and run reusable SQLite queries
+src/skeletor/base-libs/sqlite-util/Query.mli	Specify typed parameters and SQLite query helpers
+src/skeletor/base-libs/sqlite-util/dune	Build shared SQLite connection and query utilities
+src/skeletor/base-libs/sqlite-util/tests/	Transaction and query helper tests
+src/skeletor/base-libs/sqlite-util/tests/Connect_tests.ml	Check nested transactions and rollback error propagation
+src/skeletor/base-libs/sqlite-util/tests/Query_tests.ml	Check SQLite existence queries with matching and empty results
+src/skeletor/base-libs/sqlite-util/tests/dune	Expose SQLite utility tests to the aggregate runner
+src/skeletor/base-libs/text/	Document indexing, search and persistent anchor relocation
+src/skeletor/base-libs/text/Anchor.ml	Relocate text anchors with shingles and local alignment
+src/skeletor/base-libs/text/Anchor.mli	Define private anchor indexing, storage and relocation operations
+src/skeletor/base-libs/text/DB.ml	Store indexed documents, sources, anchors and search data
+src/skeletor/base-libs/text/DB.mli	Specify typed SQLite tables for document and anchor indexing
+src/skeletor/base-libs/text/Internal_types.ml	Implement private document and byte-match types
+src/skeletor/base-libs/text/Internal_types.mli	Define private storage and byte-oriented matching types
+src/skeletor/base-libs/text/Text.ml	Index documents and expose source, search and anchor operations
+src/skeletor/base-libs/text/Text.mli	Specify the public document index, search and anchor API
+src/skeletor/base-libs/text/Text_tests.ml	Test private text-index storage and query behavior
+src/skeletor/base-libs/text/Text_tests.mli	Expose private text-index tests to the suite
+src/skeletor/base-libs/text/dune	Build document indexing, search and anchor relocation
+src/skeletor/base-libs/text/tests/	Public indexing, search and relocation regression tests
+src/skeletor/base-libs/text/tests/Anchor_algorithm_tests.ml	Check unique-shingle, offset and alignment regressions
+src/skeletor/base-libs/text/tests/Code_edit_relocation_tests.ml	Check anchor relocation across function-edit fixtures
+src/skeletor/base-libs/text/tests/Fuzzy_api_tests.ml	Check fuzzy search across indexing and database upgrades
+src/skeletor/base-libs/text/tests/Relocation_logging_tests.ml	Check relocation logs retain evidence before updates
+src/skeletor/base-libs/text/tests/Search_root_tests.ml	Check source and path filters for both search methods
+src/skeletor/base-libs/text/tests/Text_api_tests.ml	Exercise public indexing, search and relocation behavior
+src/skeletor/base-libs/text/tests/dune	Expose public text API tests to the aggregate runner
+src/skeletor/base-libs/util/	File, path, Git, logging and text primitives
+src/skeletor/base-libs/util/File.ml	Read and write complete files through path helpers
+src/skeletor/base-libs/util/File.mli	Specify whole-file read and write operations
+src/skeletor/base-libs/util/Git.ml	Run Git commands for repository state and tracked files
+src/skeletor/base-libs/util/Git.mli	Specify the shell-backed Git repository helper API
+src/skeletor/base-libs/util/Log.ml	Write lazy timestamped command logs in the workspace
+src/skeletor/base-libs/util/Log.mli	Specify single-writer workspace logging behavior
+src/skeletor/base-libs/util/Number_format.ml	Format numbers for concise human-readable reports
+src/skeletor/base-libs/util/Number_format.mli	Specify report-oriented numeric formatting
+src/skeletor/base-libs/util/Path.ml	Implement convenience operations over Fpath paths
+src/skeletor/base-libs/util/Path.mli	Specify file path helpers built on Fpath
+src/skeletor/base-libs/util/Slashpath.ml	Validate and convert portable slash-separated paths
+src/skeletor/base-libs/util/Slashpath.mli	Define cross-system relative paths and segment rules
+src/skeletor/base-libs/util/Smith_waterman.ml	Find local byte alignments with rolling-row dynamic programming
+src/skeletor/base-libs/util/Smith_waterman.mli	Specify bytewise local alignment and scoring
+src/skeletor/base-libs/util/Text.ml	Validate and repair UTF-8 text from arbitrary bytes
+src/skeletor/base-libs/util/Text.mli	Define validated UTF-8 text and conversion operations
+src/skeletor/base-libs/util/Text_source.ml	Pair text content with its source name
+src/skeletor/base-libs/util/Text_source.mli	Define named text content passed to indexing and searches
+src/skeletor/base-libs/util/Utf8_stats.ml	Classify byte strings as valid UTF-8 or nontext
+src/skeletor/base-libs/util/Utf8_stats.mli	Specify bounded UTF-8 classification for document filtering
+src/skeletor/base-libs/util/Version.mli	Expose the version supplied during the build
+src/skeletor/base-libs/util/dune	Build general-purpose file, text, Git and formatting helpers
+src/skeletor/base-libs/util/tests/	Utility tests and source-edit alignment fixtures
+src/skeletor/base-libs/util/tests/Code_edit_cases.ml	Provide source-edit examples with expected alignment spans
+src/skeletor/base-libs/util/tests/Code_edit_cases.mli	Define shared source-edit fixtures for alignment tests
+src/skeletor/base-libs/util/tests/Code_edit_tests.ml	Check local alignment on source-code function edits
+src/skeletor/base-libs/util/tests/Git_tests.ml	Exercise Git helpers against a disposable repository
+src/skeletor/base-libs/util/tests/Log_tests.ml	Check lazy log creation, message framing and scope ownership
+src/skeletor/base-libs/util/tests/Number_format_tests.ml	Check human-readable number formatting
+src/skeletor/base-libs/util/tests/Smith_waterman_tests.ml	Check alignment spans, gap penalties and optimal scores
+src/skeletor/base-libs/util/tests/Text_source_tests.ml	Check named text content and source tracking
+src/skeletor/base-libs/util/tests/Text_tests.ml	Check recovery of valid UTF-8 from arbitrary byte slices
+src/skeletor/base-libs/util/tests/Utf8_stats_tests.ml	Check UTF-8 and binary classification cases
+src/skeletor/base-libs/util/tests/code-edit-results.md	Explain expected local alignments for source-edit fixtures
+src/skeletor/base-libs/util/tests/dune	Expose utility tests to the aggregate runner
+src/skeletor/cli/	skl command dispatch, option parsing and operation handlers
+src/skeletor/cli/Anchor_acknowledge_cmd.ml	Mark an anchor reviewed at its document’s current revision
+src/skeletor/cli/Anchor_acknowledge_cmd.mli	Expose the anchor review acknowledgement command
+src/skeletor/cli/Anchor_backlinks_cmd.ml	Group anchor backlinks subcommands
+src/skeletor/cli/Anchor_backlinks_cmd.mli	Expose the anchor backlinks command group
+src/skeletor/cli/Anchor_backlinks_list_cmd.ml	List anchor backlinks through the CLI
+src/skeletor/cli/Anchor_backlinks_list_cmd.mli	Expose the CLI command to list anchor backlinks
+src/skeletor/cli/Anchor_cmd.ml	Group text anchor subcommands
+src/skeletor/cli/Anchor_cmd.mli	Expose the text anchor command group
+src/skeletor/cli/Anchor_delete_cmd.ml	Delete text anchor through the CLI
+src/skeletor/cli/Anchor_delete_cmd.mli	Expose the CLI command to delete text anchor
+src/skeletor/cli/Anchor_get_cmd.ml	Retrieve text anchor through the CLI
+src/skeletor/cli/Anchor_get_cmd.mli	Expose the CLI command to retrieve text anchor
+src/skeletor/cli/Anchor_link_cmd.ml	Group claim-to-anchor link subcommands
+src/skeletor/cli/Anchor_link_cmd.mli	Expose the claim-to-anchor link command group
+src/skeletor/cli/Anchor_link_delete_cmd.ml	Delete claim-to-anchor link through the CLI
+src/skeletor/cli/Anchor_link_delete_cmd.mli	Expose the CLI command to delete claim-to-anchor link
+src/skeletor/cli/Anchor_link_get_cmd.ml	Retrieve claim-to-anchor link through the CLI
+src/skeletor/cli/Anchor_link_get_cmd.mli	Expose the CLI command to retrieve claim-to-anchor link
+src/skeletor/cli/Anchor_link_put_cmd.ml	Create or update claim-to-anchor link through the CLI
+src/skeletor/cli/Anchor_link_put_cmd.mli	Expose the CLI command to create or update claim-to-anchor link
+src/skeletor/cli/Anchor_put_cmd.ml	Create or update text anchor through the CLI
+src/skeletor/cli/Anchor_put_cmd.mli	Expose the CLI command to create or update text anchor
+src/skeletor/cli/Anchors_cmd.ml	Group text anchors subcommands
+src/skeletor/cli/Anchors_cmd.mli	Expose the text anchors command group
+src/skeletor/cli/Anchors_list_cmd.ml	List text anchors through the CLI
+src/skeletor/cli/Anchors_list_cmd.mli	Expose the CLI command to list text anchors
+src/skeletor/cli/App_command_tree.ml	Store command overviews independently of option parsing
+src/skeletor/cli/App_command_tree.mli	Expose the application command tree and overview lookup
+src/skeletor/cli/Claim_backlinks_cmd.ml	Group claim backlinks subcommands
+src/skeletor/cli/Claim_backlinks_cmd.mli	Expose the claim backlinks command group
+src/skeletor/cli/Claim_backlinks_list_cmd.ml	List claim backlinks through the CLI
+src/skeletor/cli/Claim_backlinks_list_cmd.mli	Expose the CLI command to list claim backlinks
+src/skeletor/cli/Claim_cmd.ml	Group graph claim subcommands
+src/skeletor/cli/Claim_cmd.mli	Expose the graph claim command group
+src/skeletor/cli/Claim_delete_cmd.ml	Delete graph claim through the CLI
+src/skeletor/cli/Claim_delete_cmd.mli	Expose the CLI command to delete graph claim
+src/skeletor/cli/Claim_get_cmd.ml	Retrieve graph claim through the CLI
+src/skeletor/cli/Claim_get_cmd.mli	Expose the CLI command to retrieve graph claim
+src/skeletor/cli/Claim_link_cmd.ml	Group claim-to-claim link subcommands
+src/skeletor/cli/Claim_link_cmd.mli	Expose the claim-to-claim link command group
+src/skeletor/cli/Claim_link_delete_cmd.ml	Delete claim-to-claim link through the CLI
+src/skeletor/cli/Claim_link_delete_cmd.mli	Expose the CLI command to delete claim-to-claim link
+src/skeletor/cli/Claim_link_get_cmd.ml	Retrieve claim-to-claim link through the CLI
+src/skeletor/cli/Claim_link_get_cmd.mli	Expose the CLI command to retrieve claim-to-claim link
+src/skeletor/cli/Claim_link_put_cmd.ml	Create or update claim-to-claim link through the CLI
+src/skeletor/cli/Claim_link_put_cmd.mli	Expose the CLI command to create or update claim-to-claim link
+src/skeletor/cli/Claim_put_cmd.ml	Create or update graph claim through the CLI
+src/skeletor/cli/Claim_put_cmd.mli	Expose the CLI command to create or update graph claim
+src/skeletor/cli/Claim_review_cmd.ml	Group claim review subcommands
+src/skeletor/cli/Claim_review_cmd.mli	Expose the claim review command group
+src/skeletor/cli/Claim_review_list_cmd.ml	List claims and reasons awaiting review
+src/skeletor/cli/Claim_review_list_cmd.mli	Expose the pending claim-review listing command
+src/skeletor/cli/Claim_review_resolve_cmd.ml	Resolve one or all review reasons for a claim
+src/skeletor/cli/Claim_review_resolve_cmd.mli	Expose claim-review resolution by claim or reason ID
+src/skeletor/cli/Claim_tag_cmd.ml	Group claim tag subcommands
+src/skeletor/cli/Claim_tag_cmd.mli	Expose the claim tag command group
+src/skeletor/cli/Claim_tag_delete_cmd.ml	Delete claim tag through the CLI
+src/skeletor/cli/Claim_tag_delete_cmd.mli	Expose the CLI command to delete claim tag
+src/skeletor/cli/Claim_tag_list_cmd.ml	List tags assigned to one claim, including ancestor tags
+src/skeletor/cli/Claim_tag_list_cmd.mli	Expose the command to list one claim’s tags
+src/skeletor/cli/Claim_tag_put_cmd.ml	Create or update claim tag through the CLI
+src/skeletor/cli/Claim_tag_put_cmd.mli	Expose the CLI command to create or update claim tag
+src/skeletor/cli/Claim_tags_cmd.ml	Group claim tags subcommands
+src/skeletor/cli/Claim_tags_cmd.mli	Expose the claim tags command group
+src/skeletor/cli/Claim_tags_list_cmd.ml	List all tags with usage counts or brief names
+src/skeletor/cli/Claim_tags_list_cmd.mli	Expose the command to list tags across claims
+src/skeletor/cli/Claim_update_cmd.ml	Update graph claim through the CLI
+src/skeletor/cli/Claim_update_cmd.mli	Expose the CLI command to update graph claim
+src/skeletor/cli/Claims_about_cmd.ml	Find claims related to a document, folder or text range
+src/skeletor/cli/Claims_about_cmd.mli	Expose the claims-about path and range query command
+src/skeletor/cli/Claims_cmd.ml	Group graph claims subcommands
+src/skeletor/cli/Claims_cmd.mli	Expose the graph claims command group
+src/skeletor/cli/Claims_list_cmd.ml	List graph claims through the CLI
+src/skeletor/cli/Claims_list_cmd.mli	Expose the CLI command to list graph claims
+src/skeletor/cli/Command_tree.ml	Build and search the command hierarchy for help output
+src/skeletor/cli/Command_tree.mli	Define the command hierarchy and lookup operations
+src/skeletor/cli/Commands_cmd.ml	Print the available skl command tree
+src/skeletor/cli/Commands_cmd.mli	Expose the command-listing CLI command
+src/skeletor/cli/Common_options.ml	Parse options shared by most skl subcommands
+src/skeletor/cli/Common_options.mli	Define the common option bundle for skl commands
+src/skeletor/cli/Container_link_cmd.ml	Group claim-to-container link subcommands
+src/skeletor/cli/Container_link_cmd.mli	Expose the claim-to-container link command group
+src/skeletor/cli/Container_link_delete_cmd.ml	Delete claim-to-container link through the CLI
+src/skeletor/cli/Container_link_delete_cmd.mli	Expose the CLI command to delete claim-to-container link
+src/skeletor/cli/Container_link_get_cmd.ml	Retrieve claim-to-container link through the CLI
+src/skeletor/cli/Container_link_get_cmd.mli	Expose the CLI command to retrieve claim-to-container link
+src/skeletor/cli/Container_link_put_cmd.ml	Create or update claim-to-container link through the CLI
+src/skeletor/cli/Container_link_put_cmd.mli	Expose the CLI command to create or update claim-to-container link
+src/skeletor/cli/Document_cmd.ml	Group indexed document subcommands
+src/skeletor/cli/Document_cmd.mli	Expose the indexed document command group
+src/skeletor/cli/Document_delete_cmd.ml	Delete indexed document through the CLI
+src/skeletor/cli/Document_delete_cmd.mli	Expose the CLI command to delete indexed document
+src/skeletor/cli/Document_get_cmd.ml	Retrieve indexed document through the CLI
+src/skeletor/cli/Document_get_cmd.mli	Expose the CLI command to retrieve indexed document
+src/skeletor/cli/Document_put_cmd.ml	Create or update indexed document through the CLI
+src/skeletor/cli/Document_put_cmd.mli	Expose the CLI command to create or update indexed document
+src/skeletor/cli/Documents_cmd.ml	Group indexed documents subcommands
+src/skeletor/cli/Documents_cmd.mli	Expose the indexed documents command group
+src/skeletor/cli/Documents_list_cmd.ml	List indexed documents through the CLI
+src/skeletor/cli/Documents_list_cmd.mli	Expose the CLI command to list indexed documents
+src/skeletor/cli/Documents_update_cmd.ml	Update indexed documents through the CLI
+src/skeletor/cli/Documents_update_cmd.mli	Expose the CLI command to update indexed documents
+src/skeletor/cli/Graph_cmd.ml	Group claim graph subcommands
+src/skeletor/cli/Graph_cmd.mli	Expose the claim graph command group
+src/skeletor/cli/Graph_common.ml	Parse and print values shared by graph commands
+src/skeletor/cli/Graph_common.mli	Specify shared graph argument and output helpers
+src/skeletor/cli/Graph_export_html_cmd.ml	Export the claim graph as static HTML through the CLI
+src/skeletor/cli/Graph_export_html_cmd.mli	Expose the CLI command to export the claim graph as static HTML
+src/skeletor/cli/Graph_search_words_cmd.ml	Search claim titles, summaries and bodies by word
+src/skeletor/cli/Graph_search_words_cmd.mli	Expose full-text search over claim content
+src/skeletor/cli/Graph_stats.ml	Compute graph statistics for CLI and HTML reports
+src/skeletor/cli/Graph_stats.mli	Define shared graph statistics and reporting API
+src/skeletor/cli/Graph_stats_cmd.ml	Report claim graph statistics through the CLI
+src/skeletor/cli/Graph_stats_cmd.mli	Expose the CLI command to report claim graph statistics
+src/skeletor/cli/Howto_build_recent_cmd.ml	Generate recent-build guidance through the CLI
+src/skeletor/cli/Howto_build_recent_cmd.mli	Expose the CLI command to generate recent-build guidance
+src/skeletor/cli/Howto_cmd.ml	Group workflow instructions subcommands
+src/skeletor/cli/Howto_cmd.mli	Expose the workflow instructions command group
+src/skeletor/cli/Howto_common.ml	Build howto commands and parse work-budget options
+src/skeletor/cli/Howto_common.mli	Expose shared howto command construction
+src/skeletor/cli/Howto_config.ml	Set default effort and budget values for howto prompts
+src/skeletor/cli/Howto_config.mli	Define configurable effort and budget settings
+src/skeletor/cli/Howto_investigate_cmd.ml	Generate investigation guidance through the CLI
+src/skeletor/cli/Howto_investigate_cmd.mli	Expose the CLI command to generate investigation guidance
+src/skeletor/cli/Howto_update_cmd.ml	Generate guidance for updating a knowledge base after changes
+src/skeletor/cli/Howto_update_cmd.mli	Expose the knowledge-base update guidance command
+src/skeletor/cli/Locate_cmd.ml	Locate approximate text in indexed documents through the CLI
+src/skeletor/cli/Locate_cmd.mli	Expose the CLI command to locate approximate text in indexed documents
+src/skeletor/cli/Overview_cmd.ml	Register the global overview option with command help
+src/skeletor/cli/Preparse_command.ml	Handle chdir and overview options before Cmdliner
+src/skeletor/cli/Preparse_command.mli	Define early parsing of global CLI options
+src/skeletor/cli/Reindex_cmd.ml	Rebuild text search indexes through the CLI
+src/skeletor/cli/Reserved_options.ml	Parse reserved option names with standard meanings
+src/skeletor/cli/Reserved_options.mli	Declare reusable reserved CLI option definitions
+src/skeletor/cli/Run.ml	Run commands with consistent usage and execution errors
+src/skeletor/cli/Run.mli	Define CLI error handling and safe command execution
+src/skeletor/cli/Search_common.ml	Parse source and path filters shared by search commands
+src/skeletor/cli/Search_common.mli	Specify shared source and path search filters
+src/skeletor/cli/Search_fuzzy_cmd.ml	Search topics in text index through the CLI
+src/skeletor/cli/Search_fuzzy_cmd.mli	Expose the CLI command to search topics in text index
+src/skeletor/cli/Search_words_cmd.ml	Search words in text index through the CLI
+src/skeletor/cli/Search_words_cmd.mli	Expose the CLI command to search words in text index
+src/skeletor/cli/Skl_main.ml	Dispatch skl subcommands and return an exit code
+src/skeletor/cli/Skl_main.mli	Expose the reusable skl entry point for tests and execution
+src/skeletor/cli/Slice_cmd.ml	Render slices from live files without a database
+src/skeletor/cli/Slice_cmd.mli	Expose file slicing and shared selector parsing for text slice
+src/skeletor/cli/Source_cmd.ml	Group declared source subcommands
+src/skeletor/cli/Source_cmd.mli	Expose the declared source command group
+src/skeletor/cli/Source_delete_cmd.ml	Delete declared source through the CLI
+src/skeletor/cli/Source_delete_cmd.mli	Expose the CLI command to delete declared source
+src/skeletor/cli/Source_put_cmd.ml	Declare or update a named source through the CLI
+src/skeletor/cli/Source_put_cmd.mli	Expose the source declaration command
+src/skeletor/cli/Sources_cmd.ml	Group declared sources subcommands
+src/skeletor/cli/Sources_cmd.mli	Expose the declared sources command group
+src/skeletor/cli/Sources_list_cmd.ml	List declared sources through the CLI
+src/skeletor/cli/Sources_list_cmd.mli	Expose the CLI command to list declared sources
+src/skeletor/cli/Text_cmd.ml	Group text index subcommands
+src/skeletor/cli/Text_cmd.mli	Expose the text index command group
+src/skeletor/cli/Text_common.ml	Parse source, document and range arguments for text commands
+src/skeletor/cli/Text_common.mli	Define shared text-command argument converters
+src/skeletor/cli/Text_slice_cmd.ml	Render a stored document slice from the database
+src/skeletor/cli/Version_cmd.ml	Print the skl version through the CLI
+src/skeletor/cli/Version_cmd.mli	Expose the CLI command to print the skl version
+src/skeletor/cli/dune	Build the CLI library and skl executable
+src/skeletor/cli/skl.ml	Exit with the result of the reusable skl command dispatcher
+src/skeletor/cli/tests/	CLI behavior, argument and workflow prompt tests
+src/skeletor/cli/tests/Claim_update_cmd_tests.ml	Check claim update inputs, removals and usage errors
+src/skeletor/cli/tests/Cli_test_util.ml	Capture in-process CLI output for assertions
+src/skeletor/cli/tests/Document_put_cmd_tests.ml	Check indexing warnings, strict mode and CLI exit codes
+src/skeletor/cli/tests/Documents_update_cmd_tests.ml	Check multi-source update failures and exit codes
+src/skeletor/cli/tests/Graph_stats_tests.ml	Check project and meta graph statistics and reports
+src/skeletor/cli/tests/Howto_activity_tests.ml	Check automatic effort from Git and GitHub change counts
+src/skeletor/cli/tests/Howto_cli_tests.ml	Check CLI effort factors and explicit prompt budgets
+src/skeletor/cli/tests/Howto_config_tests.ml	Check configured budgets in rendered howto instructions
+src/skeletor/cli/tests/Logging_tests.ml	Check log filenames, workspace choice and local time
+src/skeletor/cli/tests/Preparse_command_tests.ml	Check early chdir parsing in both option forms
+src/skeletor/cli/tests/Range_selection_tests.ml	Check shared inclusive and exclusive range options
+src/skeletor/cli/tests/Required_args_tests.ml	Check required arguments, help and usage overviews
+src/skeletor/cli/tests/Search_fuzzy_cmd_tests.ml	Check fuzzy search output, limits and CLI help
+src/skeletor/cli/tests/Search_root_cmd_tests.ml	Check source and path filters on both search commands
+src/skeletor/cli/tests/dune	Expose CLI tests to the aggregate runner
+src/skeletor/dune	Define the static-linking Dune build profile
+src/skeletor/dune-project	Declare the OCaml project, dependencies and package metadata
+src/skeletor/scripts/	Build scripts for versioning and static Linux binaries
+src/skeletor/scripts/build-skl-linux-static	Build or extract the static Linux skl binary from Docker
+src/skeletor/scripts/set-dev-version	Write the Git-derived development version for the build
+src/skeletor/skeletor.opam	Generated Opam package dependencies and install metadata
+src/skeletor/test	Run, inspect or approve the aggregated Testo test suite
+src/skeletor/tests/	Aggregate Testo runner for all project test libraries
+src/skeletor/tests/Test_skeletor.ml	Aggregate library and CLI test suites into the project runner
+src/skeletor/tests/dune	Configure the aggregate test executable and fixture dependencies
+src/skeletor/version	Record the fallback package version used by the build
