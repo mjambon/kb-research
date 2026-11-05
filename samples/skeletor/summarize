@@ -4,8 +4,12 @@
 #
 set -eu -o pipefail
 
-for variant in orig stripped-comments stripped-comments-markdown; do
+for variant in orig stripped-comments stripped-comments-markdown cm+answer ; do
   repo="skeletor-$variant"
+  if ! [[ -e trace-"$repo"-10.jsonl ]]; then
+    echo "Missing or incomplete run data for $repo"
+    continue
+  fi
   echo "===== repo: $repo ====="
 
   for i in `seq 1 10`; do
@@ -13,6 +17,8 @@ for variant in orig stripped-comments stripped-comments-markdown; do
   done | jq 'select(.type == "turn.completed")' > tmp.jsonl
   printf "Input tokens: "
   cat tmp.jsonl | jq '.usage.input_tokens' | jq -s add
+  printf "  mean: "
+  cat tmp.jsonl | jq '.usage.input_tokens' | jq -s 'add / length'
   printf "  stdev: "
   cat tmp.jsonl | jq '.usage.input_tokens' | jq -s '(add / length) as $mean | (map(. - $mean | . * .) | add) / (length - 1) | sqrt'
   printf "Cached input tokens: "
@@ -26,6 +32,12 @@ for variant in orig stripped-comments stripped-comments-markdown; do
 
   printf "Duration (s): "
   grep real time-"$repo".txt | grep -oP '[0-9]+\.[0-9]+' | jq -s add
+
+  for i in `seq 1 10`; do
+    cat trace-"$repo"-"$i".jsonl
+  done | jq 'select(.type == "item.started")' > tmp.jsonl
+  printf "Tool calls: "
+  cat tmp.jsonl | jq -r '.item.command' | wc -l
 
   for i in `seq 1 10`; do
     cat trace-"$repo"-"$i".jsonl | jq -r 'select(.type == "item.completed")' \

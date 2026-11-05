@@ -1,0 +1,9 @@
+I found five potential issues in anchor relocation. The first three are **P0** because they can attach an anchor to the wrong evidence or hide an outdated anchor from review.
+
+- **P0 — An intact anchor can move to a duplicate in another file.** Candidate ranking has no preference for the current document, so an unrelated edit can move the anchor to an earlier indexed copy. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-cm+answer/base-libs/text/Anchor.ml:355)
+- **P0 — An anchor can cross source boundaries.** The global shingle lookup does not filter by source. Deleting text in one registered source can attach its anchor to matching text in another. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-cm+answer/base-libs/text/Anchor.ml:206)
+- **P0 — Relocation can suppress a later review alert.** Relocation preserves `acknowledged_revision` when changing documents; `needs_review` then compares that value with the destination’s revision. Moving to a lower revision can leave a later failed relocation marked as needing no review. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-cm+answer/base-libs/text/Anchor.ml:116) [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-cm+answer/base-libs/text/Anchor.ml:512)
+- **P1 — Repeated text can become outdated despite remaining intact.** Indexing drops every occurrence of a repeated shingle, leaving some short anchors with no relocation hits. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-cm+answer/base-libs/text/Anchor.ml:159)
+- **P1 — Dense small edits can defeat relocation.** Edits every eight bytes can invalidate every stored 16 byte shingle even when most bytes remain unchanged; an existing test records this limitation. [Text_api_tests.ml](/workspace/kb-research/samples/skeletor/skeletor-cm+answer/base-libs/text/tests/Text_api_tests.ml:1060)
+
+These findings come from code and existing tests; I did not run the test suite.

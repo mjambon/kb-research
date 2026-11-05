@@ -1,0 +1,8 @@
+I found four potential issues in anchor relocation:
+
+- **P0 — An unrelated edit can move an intact anchor to another file.** Candidates with equal text coverage are ranked by document ID, with no preference for the anchor’s current document. If a duplicate was indexed first, editing outside the anchored span can move the anchor to that duplicate. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-cm+answer/base-libs/text/Anchor.ml:355)
+- **P0 — Relocation can cross source boundaries.** Candidate collection searches the global shingle index without filtering by source, so an anchor from one registered repository can attach to matching text in another. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-cm+answer/base-libs/text/Anchor.ml:206)
+- **P0 — A failed relocation can be hidden from review after a document move.** Relocation changes the anchor’s document but preserves its acknowledged revision. If the destination has a lower revision number, a later failed attempt can remain `needs_review = false`. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-cm+answer/base-libs/text/Anchor.ml:512) [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-cm+answer/base-libs/text/Anchor.ml:116)
+- **P1 — Repeated text can leave an intact anchor stale.** Indexing drops every occurrence of a repeated shingle. A short anchor appearing twice in a document can therefore have no hits after an unrelated edit. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-cm+answer/base-libs/text/Anchor.ml:159)
+
+These findings come from code inspection; I did not run a reproduction test.
