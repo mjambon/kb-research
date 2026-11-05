@@ -1,0 +1,9 @@
+I found three potential issues with anchor relocation:
+
+- **P0 — An anchor can move to an unrelated document while its text still exists in the original.** Candidate ranking breaks equal matches by lowest document ID, with no preference for the anchor’s current document. If an older document contains the same passage, reindexing the original after a nearby insertion can move the anchor to that older document. [Anchor.ml:348](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments/base-libs/text/Anchor.ml:348)
+
+- **P0 — A file move can leave an anchor stale indefinitely when the old file is removed first.** A failed attempt records the old document’s current revision. Adding the destination file later only retries anchors assigned to that destination; reindexing the unchanged old file also cannot retry them. The anchor needs another revision change in its old document before relocation runs again. [Anchor.ml:490](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments/base-libs/text/Anchor.ml:490), [Text.ml:211](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments/base-libs/text/Text.ml:211)
+
+- **P1 — Duplicating a passage within a document can prevent relocation even when the full text remains.** The index discards every occurrence of a repeated shingle. A repeated passage may therefore produce no hits and leave its anchor outdated. [Anchor.ml:151](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments/base-libs/text/Anchor.ml:151)
+
+These are code-path findings; I did not run the test suite because `dune` is unavailable in this environment.

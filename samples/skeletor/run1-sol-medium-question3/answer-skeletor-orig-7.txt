@@ -1,0 +1,5 @@
+I found two potential issues:
+
+- **P0 — An anchor can leave its original document even when its text is still there.** Candidate ranking uses matched coverage, hit count, then document ID; it gives no preference to the current document. If an older indexed file contains the same text, editing the anchor’s file can move the anchor to that other file despite an exact match at its original location. This silently changes what the anchor points to. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-orig/base-libs/text/Anchor.ml:348)
+
+- **P1 — A failed relocation is not retried when the destination is indexed later.** Relocation runs only for anchors on the document being updated. A failed attempt advances `doc_revision_attempt`, so adding the moved text to another document afterward does not reconsider the anchor. The result depends on indexing order and can remain outdated until its original document changes again. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-orig/base-libs/text/Anchor.ml:490), [Text.ml](/workspace/kb-research/samples/skeletor/skeletor-orig/base-libs/text/Text.ml:199)

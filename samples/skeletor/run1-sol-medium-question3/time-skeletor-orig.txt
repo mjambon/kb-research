@@ -1,0 +1,50 @@
+Run #1
+
+real	1m20.825s
+user	0m1.713s
+sys	0m1.207s
+Run #2
+
+real	0m57.766s
+user	0m1.445s
+sys	0m1.156s
+Run #3
+
+real	1m14.275s
+user	0m1.593s
+sys	0m1.158s
+Run #4
+
+real	1m3.099s
+user	0m1.595s
+sys	0m1.177s
+Run #5
+
+real	0m52.173s
+user	0m1.454s
+sys	0m1.039s
+Run #6
+
+real	0m57.783s
+user	0m1.486s
+sys	0m1.092s
+Run #7
+
+real	0m59.982s
+user	0m1.493s
+sys	0m1.070s
+Run #8
+
+real	1m23.612s
+user	0m1.696s
+sys	0m1.203s
+Run #9
+
+real	1m1.635s
+user	0m1.696s
+sys	0m1.247s
+Run #10
+
+real	1m11.729s
+user	0m1.623s
+sys	0m1.241s

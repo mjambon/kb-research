@@ -1,0 +1,7 @@
+I found three potential issues:
+
+- **P0 — An anchor can move away from text that is still present.** When two documents contain equally strong matches, relocation chooses the lowest document ID, with no preference for the anchor’s current document. Editing unrelated text in the current document can therefore move its anchor to an older copy in another document. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments-markdown/base-libs/text/Anchor.ml:348)
+
+- **P0 — A failed relocation can remain stranded after the text reappears elsewhere.** A failed attempt records the original document’s revision. Later indexing of a different document only retries anchors attached to that different document, so the stranded anchor is never reconsidered unless its original document changes again. [Text.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments-markdown/base-libs/text/Text.ml:199) [DB.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments-markdown/base-libs/text/DB.ml:852)
+
+- **P1 — Repeated text can make an unchanged anchor unfindable.** Indexing discards every occurrence of a shingle repeated within a document. If a second copy of an anchored passage is added, the passage may have no indexed shingles; a later edit elsewhere can leave the anchor outdated even though its original text remains. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments-markdown/base-libs/text/Anchor.ml:152)

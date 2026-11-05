@@ -1,0 +1,9 @@
+I found three potential issues in anchor relocation:
+
+- **P0 — A routine edit can move an anchor to the wrong document.** Candidate ties are broken by document ID, with no preference for the anchor’s current document ([Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-orig/base-libs/text/Anchor.ml:348)). If an older document contains the same text, appending to the anchored document can silently move the anchor to that older copy even though the original text remains in place.
+
+- **P0 — A failed relocation may never be retried after the destination appears.** Relocation only processes anchors attached to the document being updated ([Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-orig/base-libs/text/Anchor.ml:525)). If the old document is removed before its replacement is indexed, the failed attempt is recorded; indexing the replacement does not revisit the stale anchor ([DB.ml](/workspace/kb-research/samples/skeletor/skeletor-orig/base-libs/text/DB.ml:852)).
+
+- **P1 — Moving an acknowledged anchor can suppress a later review request.** A successful move retains `acknowledged_revision` while switching to the destination’s revision sequence ([Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-orig/base-libs/text/Anchor.ml:505)). If the old revision number is higher, a later failed relocation on the destination reports `needs_review = false` until that document surpasses the old number ([Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-orig/base-libs/text/Anchor.ml:109)).
+
+These findings are from code review; I did not run tests.

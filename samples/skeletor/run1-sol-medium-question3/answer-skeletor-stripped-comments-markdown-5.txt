@@ -1,0 +1,7 @@
+I found three potential issues with anchor relocation:
+
+- **P0 — An anchor can move to an unrelated copy.** [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments-markdown/base-libs/text/Anchor.ml:348) breaks equally ranked matches by document ID, with no preference for the anchor’s current document. If a copy was indexed first, editing the original can move its anchor to the copy even when the original still contains the exact text. That can attach evidence to the wrong file.
+
+- **P1 — Repeated text can prevent relocation within the same file.** [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments-markdown/base-libs/text/Anchor.ml:152) discards every occurrence of a repeated shingle when indexing a document. If an anchored passage appears twice, an insertion before it can leave no indexed hits for either occurrence, so the anchor becomes outdated despite its text remaining intact.
+
+- **P1 — A failed relocation is not retried when a destination appears later.** [DB.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments-markdown/base-libs/text/DB.ml:852) selects stale anchors only when their *current document’s* revision advances. If the source is indexed before a moved destination, relocation fails; indexing the destination afterward does not revisit that anchor.

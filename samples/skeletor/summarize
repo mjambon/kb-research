@@ -13,6 +13,8 @@ for variant in orig stripped-comments stripped-comments-markdown; do
   done | jq 'select(.type == "turn.completed")' > tmp.jsonl
   printf "Input tokens: "
   cat tmp.jsonl | jq '.usage.input_tokens' | jq -s add
+  printf "  stdev: "
+  cat tmp.jsonl | jq '.usage.input_tokens' | jq -s '(add / length) as $mean | (map(. - $mean | . * .) | add) / (length - 1) | sqrt'
   printf "Cached input tokens: "
   cat tmp.jsonl | jq '.usage.cached_input_tokens' | jq -s add
   printf "Cache write input tokens: "

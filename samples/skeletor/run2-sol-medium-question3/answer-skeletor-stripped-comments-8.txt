@@ -1,0 +1,7 @@
+I found three potential anchor relocation issues:
+
+- **P0 — An anchor can jump to another file while its original text is still present.** Candidates are ranked by coverage and hit count, then by document ID; the anchor’s current document gets no preference. If an earlier indexed file contains the same text, a routine edit to the original file can move the anchor to that copy. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments/base-libs/text/Anchor.ml:348)
+
+- **P0 — A move between files can be missed because of indexing order.** Relocation runs only for anchors attached to the file being updated. If the old file is indexed after the text is removed but before the destination is indexed, the attempt fails. Indexing the destination later does not retry that anchor, so it remains outdated until the old file changes again. [Text.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments/base-libs/text/Text.ml:199), [DB.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments/base-libs/text/DB.ml:852)
+
+- **P1 — Short anchors can miss an exact match after a small shift.** Documents index 16 byte shingles only at offsets divisible by eight. A 16 byte anchor has one query shingle, so moving its unchanged text to an offset such as 1 can leave no indexed hit and mark it outdated. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments/base-libs/text/Anchor.ml:152)

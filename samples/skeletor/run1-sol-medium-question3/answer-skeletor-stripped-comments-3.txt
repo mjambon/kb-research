@@ -1,0 +1,5 @@
+- **P0 — An edit outside the anchor can move it to the wrong file.** Candidates with equal coverage and hit counts are ranked by document ID, with no preference for the anchor’s current document ([Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments/base-libs/text/Anchor.ml:348)). If an older indexed file contains the same text, editing unrelated text in the anchor’s file can silently relocate the anchor to that older file.
+
+- **P1 — Duplicating a passage can make an exact anchor unfindable.** Document indexing discards every occurrence of a shingle that appears more than once in that document ([Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments/base-libs/text/Anchor.ml:152)). If an edit copies an anchored passage within the same file, its shingles may disappear from the index. Relocation then leaves the anchor outdated even though its exact text remains.
+
+These findings are based on code inspection; I could not run the tests because `dune` is unavailable.

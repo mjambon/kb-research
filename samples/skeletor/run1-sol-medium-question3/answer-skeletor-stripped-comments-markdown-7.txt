@@ -1,0 +1,9 @@
+I found three potential issues in anchor relocation:
+
+- **P0 — An unchanged anchor can move to another document.** Candidate ranking [breaks ties by document ID](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments-markdown/base-libs/text/Anchor.ml:348), with no preference for the anchor’s current document. If another document was indexed first and contains the same text, editing the original document elsewhere can move the anchor to that other copy even though its text remains in place.
+
+- **P0 — File moves depend on update order.** Relocation [checks only anchors belonging to the document being updated](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments-markdown/base-libs/text/Anchor.ml:525). If the old file is removed before the new file is indexed, the first attempt fails; indexing the new file never retries that anchor. It remains outdated until the old document changes again.
+
+- **P1 — Acknowledgement can hide a later relocation failure.** Relocation [keeps `acknowledged_revision` when changing documents](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments-markdown/base-libs/text/Anchor.ml:505), while `needs_review` [compares it with the destination document’s revision](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments-markdown/base-libs/text/Anchor.ml:109). Acknowledgement at revision 5 in the old document can therefore suppress review of a failed relocation at revision 1 in the new document.
+
+These findings are from code inspection; I could not run the test suite because the available opam installation is uninitialized.

@@ -1,0 +1,9 @@
+I found three potential issues:
+
+- **P0 — An intact anchor can move to the wrong document.** Candidates with equal coverage and hit counts are ordered by document ID, with no preference for the anchor’s current document ([Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments-markdown/base-libs/text/Anchor.ml:348)). If an older document contains the same text, appending text to the anchored document can move the anchor to that older copy even though its original range is intact.
+
+- **P0 — Relocation can hide a later failure from review.** Relocation carries `acknowledged_revision` into the destination document ([Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments-markdown/base-libs/text/Anchor.ml:505)), but `needs_review` compares it with the destination’s revision ([Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments-markdown/base-libs/text/Anchor.ml:109)). After a move from a higher revision document, a failed relocation in the destination can remain marked as already reviewed.
+
+- **P1 — Short anchors can fail after a one-byte shift.** Document shingles are indexed every eight bytes ([Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments-markdown/base-libs/text/Anchor.ml:167)). A valid 16-byte anchor shifted by a one-byte insertion has no complete indexed shingle at its new position, so its unchanged text becomes `Outdated`.
+
+These are code-path findings; I could not run the test suite because `dune` is unavailable in this environment.

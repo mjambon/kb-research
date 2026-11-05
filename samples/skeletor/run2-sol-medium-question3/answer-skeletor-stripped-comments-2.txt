@@ -1,0 +1,5 @@
+I found two potential issues:
+
+- **P0 — A matching copy can take an anchor away from its original document.** Candidate ranking breaks equal-coverage ties by document ID, with no preference for the original document ([Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments/base-libs/text/Anchor.ml:348)). If an older document contains the same text, a harmless edit that shifts the anchor in its original document can relocate the anchor to that older copy. The anchor then appears up to date at the wrong location.
+
+- **P0 — A failed relocation is not retried when the destination appears later.** Relocation checks only stale anchors belonging to the document currently being updated ([Text.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments/base-libs/text/Text.ml:199), [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments/base-libs/text/Anchor.ml:525)). If the original document is changed or removed before its text is indexed at a new path, its anchor becomes outdated. Indexing the new path later does not revisit it, so an ordinary move can leave the anchor outdated indefinitely.

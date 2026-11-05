@@ -1,0 +1,7 @@
+I found three potential anchor relocation issues:
+
+- **P0 — A move can remain stale because update order controls retries.** Relocation runs only for anchors on the document currently being updated ([Text.ml](/workspace/kb-research/samples/skeletor/skeletor-orig/base-libs/text/Text.ml:199), [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-orig/base-libs/text/Anchor.ml:525)). If the old file is indexed before the destination, the attempt fails. Indexing the destination does not retry it, and reindexing the unchanged old file does not advance its revision. The anchor stays `Outdated` until the old file changes again.
+
+- **P0 — An anchor can relocate into an unrelated source.** Candidate collection searches the shared shingle index, and selection applies no source check ([Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-orig/base-libs/text/Anchor.ml:355)). Editing an anchor’s file can therefore move it to matching text in a separate registered repository or source, changing what its claim points to.
+
+- **P1 — A surviving original location can lose to a duplicate.** Candidates are ranked by shingle coverage and hit count, with no preference for the anchor’s current document ([Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-orig/base-libs/text/Anchor.ml:348)). If a copy scores higher after an edit, the anchor can move away even though its text still exists in the original file.

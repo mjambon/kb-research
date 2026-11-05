@@ -1,0 +1,9 @@
+I found three potential issues in anchor relocation:
+
+- **P0 — An unchanged anchor can move to the wrong document.** Candidates are ranked by matched text, then document ID, with no preference for the original document. If an earlier indexed document contains the same passage, updating unrelated text in the original document can move the anchor to that copy. The result is marked up to date and `needs_review` is false. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments-markdown/base-libs/text/Anchor.ml:348)
+
+- **P1 — Cross-document moves depend on indexing order.** If the old document is updated before the destination is indexed, relocation records a failed attempt. Indexing the destination later processes only its own anchors, so the old anchor stays outdated until the old document changes again. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments-markdown/base-libs/text/Anchor.ml:490) · [Text.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments-markdown/base-libs/text/Text.ml:199)
+
+- **P1 — Repeated text can become outdated after an unrelated edit.** Indexing discards every occurrence of a shingle that repeats within a document. An anchor made entirely of repeated text can therefore have no searchable shingles, even when its text remains present. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments-markdown/base-libs/text/Anchor.ml:152)
+
+This was a static review; I did not run tests because `dune` is unavailable in the environment.

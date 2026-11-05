@@ -1,0 +1,7 @@
+I found three potential anchor relocation issues:
+
+- **P0 — An unrelated edit can silently move an anchor to another document.** Relocation searches every indexed document, then breaks equal match scores by the lowest document ID, with no preference for the anchor’s current document. If an older document contains the same snippet, editing text elsewhere in the anchored document can move the anchor to that older document and mark it up to date. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-orig/base-libs/text/Anchor.ml:348)
+
+- **P1 — Indexing order can leave a moved anchor stale indefinitely.** If the original document is indexed as deleted before its destination is indexed, relocation records a failed attempt. Indexing the destination later only retries anchors owned by that destination, so this anchor is not reconsidered until the original document changes again. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-orig/base-libs/text/Anchor.ml:525), [Text.ml](/workspace/kb-research/samples/skeletor/skeletor-orig/base-libs/text/Text.ml:211)
+
+- **P1 — Repeated text can defeat relocation even when the original span remains.** Indexing discards *all* occurrences of a shingle repeated within a document. For an anchor on one of two identical blocks, a small edit before the block can require relocation while leaving no indexed hits for either copy. The anchor becomes stale despite its text still being present. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-orig/base-libs/text/Anchor.ml:151)

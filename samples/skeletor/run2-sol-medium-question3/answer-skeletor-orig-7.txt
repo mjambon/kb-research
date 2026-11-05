@@ -1,0 +1,7 @@
+I found two potential anchor relocation issues:
+
+- **P0 — An anchor can silently move to a different source.** Candidate search considers every indexed document without checking the anchor’s source. If source A loses anchored text and source B contains a matching copy, the anchor can become *up to date* in B, leaving claims pointing at the wrong corpus. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-orig/base-libs/text/Anchor.ml:355)
+
+- **P1 — A failed relocation may never be retried after the destination is indexed.** Updates relocate anchors one document at a time. If the original document is processed before a changed destination, the attempt fails and records the original’s current revision. Indexing the destination later does not revisit that anchor; it stays outdated until the original changes again. [Documents_update_cmd.ml](/workspace/kb-research/samples/skeletor/skeletor-orig/cli/Documents_update_cmd.ml:438), [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-orig/base-libs/text/Anchor.ml:490)
+
+These findings are based on code inspection. I could not run the tests because Opam is not initialized in this environment.

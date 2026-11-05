@@ -1,0 +1,7 @@
+### Potential issues
+
+- **P0 — Batch order can leave a moved anchor stale.** [Documents_update_cmd.ml](/workspace/kb-research/samples/skeletor/skeletor-orig/cli/Documents_update_cmd.ml:434) indexes changed files one at a time, and [Text.ml](/workspace/kb-research/samples/skeletor/skeletor-orig/base-libs/text/Text.ml:211) relocates anchors immediately after each file. If text moves from `a.ml` to `b.ml` and `a.ml` is processed first, the new text is not indexed yet. The anchor is marked stale; indexing `b.ml` does not retry it because the anchor still belongs to `a.ml`.
+
+- **P1 — An unchanged anchor can become stale when its text is duplicated.** [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-orig/base-libs/text/Anchor.ml:150) discards every repeated shingle in a document. If an edit adds a second, identically aligned copy of an anchored block, the original block can produce no indexed hits even though it remains at its original range. Relocation then marks the anchor stale.
+
+- **P1 — Relocation can cross into an unrelated source.** [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-orig/base-libs/text/Anchor.ml:199) searches shingles across all indexed documents without restricting the source. A shared block in another repository can therefore become the selected destination when the original document changes, silently changing what an anchor refers to.

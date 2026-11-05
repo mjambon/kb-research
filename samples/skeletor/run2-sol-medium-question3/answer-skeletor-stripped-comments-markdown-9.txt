@@ -1,0 +1,7 @@
+I found three potential issues in anchor relocation:
+
+- **P0 — An unchanged anchor can move to the wrong document.** Candidates with equal coverage and hit counts are ordered by document ID, with no preference for the anchor’s current document. If an older indexed document contains the same text, editing unrelated text in the anchor’s document can silently move the anchor there. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments-markdown/base-libs/text/Anchor.ml:348)
+
+- **P1 — Relocation depends on when the destination is indexed.** If the original document is deleted before its replacement is indexed, the failed attempt is recorded against the original document’s revision. Indexing the replacement later only retries anchors attached to that replacement, so the old anchor stays outdated until the original document changes again. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments-markdown/base-libs/text/Anchor.ml:491), [DB.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments-markdown/base-libs/text/DB.ml:852)
+
+- **P1 — Repeated text can leave an intact anchor outdated.** Shingle indexing drops every occurrence of a shingle that repeats within a document. An anchor in repeated text may therefore have no hits in its own document; an unrelated edit triggers relocation, but the unchanged text cannot be found. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments-markdown/base-libs/text/Anchor.ml:151)

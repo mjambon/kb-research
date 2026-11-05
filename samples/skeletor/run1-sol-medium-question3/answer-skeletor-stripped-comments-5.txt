@@ -1,0 +1,9 @@
+I found three potential issues in anchor relocation:
+
+- **P0 — An unchanged anchor can move to a copy in another document.** Candidates are ranked by coverage, hit count, then document ID, with no preference for the anchor’s current document. If a lower-ID document contains the same text, updating the original document can silently move the anchor to that copy even when the original text is still present. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments/base-libs/text/Anchor.ml:348)
+
+- **P0 — Moving between documents can suppress a later review alert.** Relocation preserves `acknowledged_revision` from the old document. If that revision is higher than the destination document’s revision, a later failed relocation in the destination reports `needs_review = false` until its revision exceeds the old acknowledgment. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments/base-libs/text/Anchor.ml:505) · [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments/base-libs/text/Anchor.ml:109)
+
+- **P1 — An orphaned anchor is not retried when its text appears in a newly indexed document.** Relocation runs only for anchors attached to the document being updated. If the original is removed before the replacement is indexed, the anchor remains outdated when the replacement arrives; another update to the original is needed to trigger a search. [Text.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments/base-libs/text/Text.ml:199) · [DB.ml](/workspace/kb-research/samples/skeletor/skeletor-stripped-comments/base-libs/text/DB.ml:852)
+
+These findings are from code inspection; I did not run tests because `dune` is unavailable in the environment.
