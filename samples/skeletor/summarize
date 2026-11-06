@@ -10,6 +10,7 @@ variants="
   stripped-comments-markdown
   cm+answer
   sitemap
+  nocomment_nomd_notest
 "
 
 for variant in $variants; do
