@@ -1,0 +1,7 @@
+## Findings
+
+- **P0 — An edit elsewhere in a document can move an anchor to an unrelated copy.** [Candidate ranking](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/Anchor.ml:348) breaks equal matches by document ID, with no preference for the anchor’s current document. If two files contain the same anchored text and the current file is edited elsewhere, relocation can move the anchor to the lower-ID file even though its text is still present. The result is marked `Up_to_date`, so it does not need review. The tests also [document a related false positive](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/tests/Text_api_tests.ml:1125) when shared text survives only in an unrelated file.
+
+- **P1 — A failed relocation is not retried when its destination is indexed later.** [A failed attempt records the source revision](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/Anchor.ml:490), while [relocation selects only anchors whose attempt revision is older than that document’s revision](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/DB.ml:852). If the source is removed before the moved text is indexed at its destination, the anchor stays `Outdated` after the destination is indexed. Reindexing the unchanged source does not retry it.
+
+These findings are from code review; I could not run the tests because the available Opam installation is not initialized.

@@ -1,0 +1,5 @@
+I found two issues in anchor relocation:
+
+- **P0 — An edited anchor can silently move to a duplicate in another document.** [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/Anchor.ml:348) ranks candidates by matched text coverage without preferring the original document. If the original span survives a small edit while another document retains an exact copy, the copy wins. [relocate_one](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/Anchor.ml:495) then changes the anchor’s document and marks it current, potentially making a claim point to the wrong code without a review flag.
+
+- **P1 — A failed relocation is not retried when its destination is indexed later.** [get_stale](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/DB.ml:852) selects only anchors on the document currently being updated, and a failed attempt advances that anchor’s attempted revision. If code moves from A to B and A is updated before B is indexed, indexing B does not revisit A’s anchor. It stays outdated until A changes again.

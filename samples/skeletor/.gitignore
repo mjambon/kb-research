@@ -2,4 +2,5 @@
 /skeletor-stripped-comments
 /skeletor-stripped-comments-markdown
 /skeletor-cm+answer
-/tmp.jsonl
+/skeletor-nocomment_nomd_notest
+tmp.jsonl

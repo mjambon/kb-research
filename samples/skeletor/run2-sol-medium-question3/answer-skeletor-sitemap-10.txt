@@ -1,0 +1,7 @@
+### Potential anchor relocation issues
+
+- **P0 — An unchanged anchor can move to the wrong document.** Relocation searches all indexed documents, and equal matches are resolved by document ID without preferring the anchor’s current document ([Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/Anchor.ml:348)). If an earlier indexed file contains the same text, an unrelated edit to the anchor’s file can silently reattach it to that file even though the original text remains.
+
+- **P1 — File moves depend on indexing order.** Only anchors on the document currently being updated are retried ([Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/Anchor.ml:525)). If the old file is removed before the destination is indexed, relocation fails; adding the destination later never retries that stale anchor.
+
+- **P1 — Adding a duplicate can make an untouched anchor stale.** The shingle index discards every occurrence of a repeated shingle within a document ([Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/Anchor.ml:150)). Copying an anchored block elsewhere in the same file can remove all its indexed shingles, so a later relocation attempt finds no match despite the original block still being present.

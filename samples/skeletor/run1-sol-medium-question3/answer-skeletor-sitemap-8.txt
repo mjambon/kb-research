@@ -1,0 +1,7 @@
+I found three potential issues:
+
+- **P0 — An anchor can move to an unrelated copy even when its original text is still present.** Candidates are ranked by coverage and hit count, then by document ID, with no preference for the anchor’s current document. If another file was indexed first and contains the same excerpt, an edit elsewhere in the original file can move the anchor to that file and mark the result current. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/Anchor.ml:348)
+
+- **P0 — Relocation depends on file update order.** Each file update immediately attempts relocation, and a failed attempt advances `doc_revision_attempt`. If the source file is updated before a destination file receives the moved text, the anchor becomes stale. Updating the destination later in the same batch does not retry it; even a subsequent unchanged update will not trigger a retry. [Documents_update_cmd.ml](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/cli/Documents_update_cmd.ml:438), [DB.ml](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/DB.ml:852)
+
+- **P1 — Short exact matches depend on their byte offset.** Documents index 16-byte shingles only every eight normalized bytes. A 16-byte anchor embedded at an offset between those index positions can have no hit even when its text is unchanged, so an edit elsewhere can leave it stale. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/Anchor.ml:152)

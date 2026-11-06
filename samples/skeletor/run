@@ -10,14 +10,14 @@ set -eu -o pipefail
 #anchor text are found in multiple files?"
 
 # Q2 Slightly hard - no difference
-#question="\
-#What happens if during anchor relocation, exact matches for the
-#anchor text are found in multiple files? Is this behavior desirable?"
+question="\
+What happens if during anchor relocation, exact matches for the
+anchor text are found in multiple files? Is this behavior desirable?"
 
 # Q3
-question="\
-Report potential issues with how anchor relocation works and label them
-as P0 if they're important to fix or P1 otherwise."
+#question="\
+#Report potential issues with how anchor relocation works and label them
+#as P0 if they're important to fix or P1 otherwise."
 
 echo "Question: $question"
 

@@ -1,0 +1,9 @@
+I found three potential issues with anchor relocation:
+
+- **P0 — An edited anchor can silently move to an unrelated copy.** Relocation ranks matches across all documents by shingle coverage, with no preference for the original document ([Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/Anchor.ml:348)). If the original span survives an edit but another file has an exact copy of its old text, the copy can win. The anchor is then marked current at the wrong file, so it does not need review ([Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/Anchor.ml:495)).
+
+- **P1 — A destination indexed later may never be considered.** A failed attempt advances `doc_revision_attempt` ([Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/Anchor.ml:491)). When the destination is subsequently indexed, relocation only examines anchors belonging to that destination ([Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/Anchor.ml:525)). An anchor left on its original document therefore stays outdated until that document changes again.
+
+- **P1 — Repeated text can make an unchanged anchor go outdated.** The matcher discards every occurrence of a repeated shingle, including the first ([Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/Anchor.ml:146)). For a repetitive anchor, or a span copied twice within a document, an edit elsewhere can leave too few hits to find the still-intact span ([Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/Anchor.ml:355)). The existing tests document this limitation.
+
+These findings are from code review; I did not run the test suite.

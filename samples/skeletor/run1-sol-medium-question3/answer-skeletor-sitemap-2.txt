@@ -1,0 +1,9 @@
+I found three potential issues:
+
+- **P0 — A move can leave an anchor outdated indefinitely when the old document is indexed first.** Relocation runs only for anchors attached to the document being updated ([Text.ml](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/Text.ml:210), [DB.ml](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/DB.ml:852)). If the old document is deleted before its destination is indexed, the failed attempt is recorded. Indexing the destination then never retries that anchor, and a no-op reindex of the old document will not advance its revision.
+
+- **P0 — Relocation can silently attach an anchor to unrelated text.** Candidate ranking has no preference for the original document or evidence of an actual move ([Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/Anchor.ml:348)). An existing regression test demonstrates an anchor moving to an unrelated file containing the same boilerplate ([Text_api_tests.ml](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/tests/Text_api_tests.ml:1096)). The result is reported as up to date despite pointing at the wrong source.
+
+- **P1 — Repeated text can become unrelocatable even when it survives unchanged.** Document indexing discards *every* occurrence of a repeated shingle ([Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/Anchor.ml:146)). An anchor in a duplicated block can therefore have no indexed hits after an unrelated edit and be marked outdated.
+
+This was a static review; I could not run the OCaml tests because `dune` is unavailable in the workspace.

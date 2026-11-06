@@ -1,0 +1,7 @@
+I found three potential issues with anchor relocation:
+
+- **P0 — An unchanged anchor can silently move to the wrong document.** Candidates are ranked by shingle coverage, hit count, then document ID, with no preference for the anchor’s current document ([Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/Anchor.ml:348)). If an older document contains the same text, appending unrelated content to the anchor’s document can make relocation choose that older document, even though the anchored text is still intact.
+
+- **P1 — A failed move is not retried when the destination is indexed later.** Relocation only examines anchors attached to the document being updated ([Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/Anchor.ml:525)). If the old document is deleted before its replacement is indexed, the anchor becomes outdated; indexing the replacement never revisits it.
+
+- **P1 — Exact matches for 16-byte anchors depend on position.** Document shingles are indexed every eight bytes, while a 16-byte query has only one shingle ([Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/Anchor.ml:167)). Inserting one byte before an otherwise unchanged 16-byte anchor leaves no matching indexed shingle, so relocation fails.

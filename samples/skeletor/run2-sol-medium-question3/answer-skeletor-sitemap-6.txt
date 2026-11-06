@@ -1,0 +1,9 @@
+I found four potential issues with anchor relocation:
+
+- **P0 — An anchor can silently move to the wrong document.** When two documents contain the same anchored text, ties are resolved by document ID, with no preference for the anchor’s current document. Editing the current document can therefore move a still-valid anchor to an older, unrelated document. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/Anchor.ml:348)
+
+- **P1 — A failed cross-file move may never be retried.** If the old file is indexed before the new file, relocation fails and records that revision as attempted. Indexing the new file only retries anchors already assigned to that file, so the anchor stays outdated until the old file changes again. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/Anchor.ml:490), [Text.ml](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/Text.ml:199)
+
+- **P1 — Short anchors can fail after a harmless shift.** A 16-byte anchor has one query shingle, while document shingles are indexed every eight bytes. If an insertion shifts an otherwise unchanged match off that stride, there is no hit to start alignment. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/Anchor.ml:152)
+
+- **P1 — Repeated text can disappear from the relocation index.** Indexing drops *every* occurrence of a shingle repeated within a document. Identical short blocks can consequently have no searchable shingles, leaving an anchor outdated after an unrelated edit. [Anchor.ml](/workspace/kb-research/samples/skeletor/skeletor-sitemap/src/skeletor/base-libs/text/Anchor.ml:150)

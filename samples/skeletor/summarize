@@ -4,7 +4,15 @@
 #
 set -eu -o pipefail
 
-for variant in orig stripped-comments stripped-comments-markdown cm+answer ; do
+variants="
+  orig
+  stripped-comments
+  stripped-comments-markdown
+  cm+answer
+  sitemap
+"
+
+for variant in $variants; do
   repo="skeletor-$variant"
   if ! [[ -e trace-"$repo"-10.jsonl ]]; then
     echo "Missing or incomplete run data for $repo"
